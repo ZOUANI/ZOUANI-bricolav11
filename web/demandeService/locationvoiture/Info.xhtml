@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <div class="row">
+
+            <h5 class="info-text"> Veuillez remplir le formulaire ci-dessous afin que nous puissions trouver la voiture parfaite pour vous.</h5>
+            <div class="col-sm-12">
+                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%" >
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel value="Ville" for="villeSearch"/>
+
+                        </p:column>
+                        <p:column>
+                            <p:selectOneMenu class="form-control" id="villeSearch" value="#{demandeServiceController.demandeVoitureItem.worker.secteur.ville}" filter="true" filterMatchMode="startsWith" >
+                                <p:ajax listener="#{managerController.doAction}" />
+                                <f:selectItem itemValue="#{null}" itemLabel="--Selectionner--"/>
+                                <f:selectItems value="#{managerController.loadVilles()}" 
+                                               var="ville"
+                                               itemValue="#{ville}"
+                                               />
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="Marque" for="marque"  style="text-align: left;padding-top: 10px;width: 50px;"/>
+                        </p:column>
+
+                        <p:column>
+                            <p:selectOneMenu class="form-control" id="marque" value="#{demandeServiceController.voitureMarque}" style="width: 150px;height: 40px" filter="true" filterMatchMode="startsWith" >
+                                <p:ajax  update="modele" listener="#{demandeServiceController.loadModeles()}"/>
+                                <f:selectItem itemLabel="--Selectionner--" itemValue="#{null}"/> 
+                                <f:selectItems value="#{voitureMarqueController.itemsAvailableSelectOne}"  var="item" itemValue="#{item}" itemLabel="#{item.nom}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+
+                        <p:column>
+                            <p:outputLabel for="modele" value="Modele" style="text-align: left;padding-top: 10px;width: 50px" />
+                        </p:column>
+                          <p:column>
+                            <p:selectOneMenu class="form-control" id="modele" value="#{demandeServiceController.demandeVoitureItem.modele}" style="width: 150px;height: 40px" filter="true" filterMatchMode="startsWith" >
+                                <f:selectItem itemLabel="--Selectionner--" itemValue="#{null}"/> 
+                                <f:selectItems value="#{demandeServiceController.modeles}" var="item" itemValue="#{item}" itemLabel="#{item.nom}-#{item.annee}"/>
+
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                      
+
+                        <p:column>
+                            <p:outputLabel for="fuel" value="Carburant" style="text-align: left;padding-top: 10px;width: 50px" />
+                        </p:column>
+
+                        <p:column>
+                            <p:selectOneMenu class="form-control" id="fuel" value="#{demandeServiceController.demandeVoitureItem.carburant}" style="width: 150px;height: 40px" filter="true" filterMatchMode="startsWith" >
+
+                                <f:selectItem itemLabel="--Selectionner--" itemValue="#{null}"/> 
+                                <f:selectItems value="#{carburantController.itemsAvailableSelectOne}" var="carburant" itemValue="#{carburant}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="Quantite" for="quantite" style="text-align: left;padding-top: 10px;width: 70px;"/>
+                        </p:column>
+
+                        <p:column>   
+                            <p:selectOneMenu class="form-control" id="quantite" value="#{demandeServiceController.demandeVoitureItem.quantite}" style="width: 150px;height: 40px">
+                                <f:selectItem itemValue="#{1}" itemLabel="1"/>
+                                <f:selectItem itemValue="#{2}" itemLabel="2"/>
+                                <f:selectItem itemValue="#{3}" itemLabel="3"/>
+                                <f:selectItem itemValue="#{4}" itemLabel="4"/>
+                                <f:selectItem itemValue="#{5}" itemLabel="5"/>
+                            </p:selectOneMenu>
+                        </p:column>
+
+
+
+
+
+                        <p:column>
+                            <p:outputLabel for="dateDebut" value="Date Debut" style="text-align: left;padding-top: 10px;width: 80px;"/>
+                        </p:column>
+                          <p:column>
+                            <p:calendar id="dateDebut" value="#{demandeServiceController.demandeVoitureItem.dateDebut}" inputStyle="width: 150px;height: 40px" pattern="dd/MM/yyyy" />
+                        </p:column>
+
+                    </p:row>
+                    <p:row>
+                      
+                        <p:column>
+                            <p:outputLabel for="dateFin" value="Date Fin" style="text-align: left;padding-top: 10px;width: 70px;"/>
+                        </p:column>
+
+                        <p:column>
+                            <p:calendar id="dateFin" value="#{demandeServiceController.demandeVoitureItem.dateFin}" inputStyle="width: 150px;height: 40px" pattern="dd/MM/yyyy" />
+                        </p:column>
+
+                        <p:column>
+                            <p:outputLabel value="Selectionner Agence" style="text-align: left;padding-top: 10px;width: 140px;"/>
+                        </p:column>
+
+                        <p:column>
+                            <p:commandButton actionListener="#{demandeServiceController.showVoitureToClient()}" value="..." update=":SocieteVoitureDlg" style="width: 50px;height: 30px" />
+                        </p:column>
+
+                        <p:column>
+                            <p:commandButton value="Ajouter" actionListener="#{demandeServiceController.addDemandeVoitureItem()}" update="listDemandeVoitureItems , :growl" style="text-align: left;width: 80px;height: 40px"/>
+                        </p:column>
+                    </p:row>
+
+                   
+
+
+                </p:panelGrid>
+            </div>
+
+            <div class="col-sm-12">
+                <p:panel  style="margin-top: 15px" id="panel-prix">
+                    <p:dataTable id="listDemandeVoitureItems" value="#{demandeServiceController.demandeVoitureItems}" var="item"
+                                 style="text-align: center"
+                                 paginator="true" rowKey="#{item.modele.id}"
+                                 rows="3"
+                                 >
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Modele"/>
+                            </f:facet>
+                            <h:outputText value="#{item.modele.nom}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Carburant"/>
+                            </f:facet>
+                            <h:outputText value="#{item.carburant.nom}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Prix Unitaire"/>
+                            </f:facet>
+                            <h:outputText value="#{item.modele.prix}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Quantite"/>
+                            </f:facet>
+                            <h:outputText value="#{item.quantite}"/>
+                        </p:column>
+
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date Debut"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateDebut}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date Fin"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateFin}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="nbr Jour"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nbrJour}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Prix"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prix}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Agence"/>
+                            </f:facet>
+                            <p:commandLink value="#{item.worker.nom}"  onclick="PF('workerInfoDialog').show()" update=":workerInfoForm" style="color: #06afb5"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Action"/>
+                            </f:facet>
+                            <p:commandButton title="Supprimer" icon="ui-icon-trash" actionListener="#{demandeServiceController.deleteDemandeVoitureItem(item)}"  update="listDemandeVoitureItems" />
+                        </p:column>
+                         <f:facet name="footer">
+                                <h:outputText value="PRIX TTC : #{demandeServiceController.demandeService.prixTtc} DH "/>
+                            </f:facet>
+
+
+
+                    </p:dataTable>
+                </p:panel>
+            </div>
+
+
+        </div>
+
+    </ui:composition>
+
+</html>

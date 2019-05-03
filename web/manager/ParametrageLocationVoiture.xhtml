@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Profile</title>
+
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
+        <link rel="shortcut icon" href="../resources/images/symbol.png" type="image/png" sizes="16x22"/>
+
+        <link rel="stylesheet" href="../resources/bootstrap-4.0.0/css/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="../resources/css/workerProfilecss.css"></link>
+
+
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+
+    </h:head>
+
+
+    <h:body>
+        <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+        <ui:include src="TopNav.xhtml"/>
+
+        <div class="d-flex">
+
+            <ui:include src="SidebarNav.xhtml"/>
+
+            <div class="content p-4">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12 " >
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="Dashboard.xhtml">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Configuration</li>
+                            </ol>
+                        </nav>   
+
+                    </div>
+                </div>
+
+
+
+                <p:tabView id="parametrageTab">
+                    <p:tab title="Carburant">
+                        <ui:include src="parametrage/carburant/List.xhtml"/>
+                    </p:tab>
+
+                  
+                    <p:tab title="Voiture">
+                        <ui:include src="parametrage/voiture/List.xhtml"/>
+                    </p:tab>
+
+                    <p:tab title="VoitureCarburantCouleur">
+                        <ui:include src="parametrage/voitureCarburantCouleur/List.xhtml"/>
+                    </p:tab>
+
+                    <p:tab title="VoitureImage">
+                        <ui:include src="parametrage/voitureImage/List.xhtml"/>
+                    </p:tab>
+
+                    <p:tab title="VoitureMarque">
+                        <ui:include src="parametrage/voitureMarque/List.xhtml"/>
+                    </p:tab>
+
+                    <p:tab title="VoitureModele">
+                        <ui:include src="parametrage/voitureModele/List.xhtml"/>
+                    </p:tab>
+
+                    <p:tab title="VoiturePricing">
+                        <ui:include src="parametrage/voiturePricing/List.xhtml"/>
+                    </p:tab>
+
+                  
+
+
+                </p:tabView>
+
+            </div>
+        </div>
+
+
+        <script src="../resources/js/popper.min.js"></script>
+        <script src="../resources/bootstrap-4.0.0/js/bootstrap.min.js"></script>
+        <script src="../resources/js/workerProfileJs.js"></script>
+
+    </h:body>
+
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VoiturePricingCreateDlg" widgetVar="VoiturePricingCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateVoiturePricingTitle}">
+            <h:form id="VoiturePricingCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{voiturePricingController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateVoiturePricingLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{voiturePricingController.selected.id}" title="#{bundle.CreateVoiturePricingTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateVoiturePricingLabel_dateApplication}" for="dateApplication" />
+                        <p:calendar id="dateApplication" pattern="MM/dd/yyyy" value="#{voiturePricingController.selected.dateApplication}" title="#{bundle.EditVoiturePricingTitle_dateApplication}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateVoiturePricingLabel_voiture}" for="voiture" />
+                        <p:selectOneMenu id="voiture" value="#{voiturePricingController.selected.voiture}" >
+                            <f:selectItems value="#{voitureController.itemsAvailableSelectOne}"
+                                           var="voitureItem"
+                                           itemValue="#{voitureItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateVoiturePricingLabel_prix}" for="prix" />
+                        <p:inputText id="prix" value="#{voiturePricingController.selected.prix}" title="#{bundle.CreateVoiturePricingTitle_prix}" />
+                        <p:outputLabel value="#{bundle.CreateVoiturePricingLabel_unite}" for="unite" />
+                        <p:selectOneMenu id="unite" value="#{voiturePricingController.selected.unite}" >
+                            <f:selectItems value="#{uniteController.itemsAvailableSelectOne}"
+                                           var="uniteItem"
+                                           itemValue="#{uniteItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{voiturePricingController.create}" value="#{bundle.Save}"  update="display, :parametrageTab:VoiturePricingListForm:datalist,:growl" oncomplete="handleSubmit(args,'VoiturePricingCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VoiturePricingCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

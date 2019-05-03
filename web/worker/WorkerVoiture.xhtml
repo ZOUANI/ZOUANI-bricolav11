@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Table</title>
+
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
+        <link rel="shortcut icon" href="../resources/images/symbol.png" type="image/png" sizes="16x22"/>
+
+
+        <link rel="stylesheet" href="../resources/bootstrap-4.0.0/css/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="../resources/css/workerProfilecss.css"></link>
+        <h:outputStylesheet name="css/paper-bootstrap-wizard.css"/>
+
+
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+
+
+
+
+    </h:head>
+
+    <h:body>
+
+        <ui:include src="TopNav.xhtml"/>
+
+        <div class="d-flex">
+
+            <ui:include src="SidebarNav.xhtml"/>
+
+            <div class="content p-4">
+
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12 " >
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="WorkerDashboard.xhtml">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Voiture</li>
+                            </ol>
+                        </nav>   
+
+                    </div>
+                </div>
+
+                <h:form id="voitureCreatForm">
+
+
+                    <p:panel header="Voitures">
+
+                        <p:panelGrid  columns="8" styleClass="ui-noborder" style="margin: 0 auto">
+
+
+                            <p:outputLabel value="Marque" for="marque" style="text-align: left;padding-top: 10px;width: 50px;"/>
+                            <p:selectOneMenu class="form-control" id="marque" value="#{workerController.voiture.modele.marque}" style="width: 150px;height: 40px">
+                                <p:ajax  listener="#{workerController.loadModeles()}" update="modele" />
+                                <f:selectItem itemLabel="--Selectionner--" itemValue="#{null}"/> 
+                                <f:selectItems value="#{voitureMarqueController.itemsAvailableSelectOne}"  var="item" itemValue="#{item}" itemLabel="#{item.nom}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="#{bundle.CreateVoitureLabel_modele}" for="modele" />
+                            <p:selectOneMenu id="modele" value="#{workerController.voiture.modele}" >
+                                <f:selectItem itemLabel="--Selectionner--" itemValue="#{null}"/> 
+                                <f:selectItems value="#{workerController.modeles}" var="item" itemValue="#{item}" itemLabel="#{item.nom}-#{item.annee}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="#{bundle.CreateVoitureLabel_carburant}" for="carburant" />
+                            <p:selectOneMenu id="carburant" value="#{workerController.voiture.carburant}" >
+                                <f:selectItem itemLabel="--Selectionner--" itemValue="#{null}"/> 
+                                <f:selectItems value="#{carburantController.itemsAvailableSelectOne}"
+                                               var="carburantItem"
+                                               itemValue="#{carburantItem}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="#{bundle.CreateVoitureLabel_prix}" for="prix" />
+                            <p:inputText id="prix" value="#{workerController.voiture.prix}" title="#{bundle.CreateVoitureTitle_prix}" />
+
+                            <p:outputLabel value="#{bundle.CreateVoitureLabel_quantite}" for="quantite" />
+                            <p:inputText id="quantite" value="#{workerController.voiture.quantite}" title="#{bundle.CreateVoitureTitle_quantite}" />
+
+                            <p:outputLabel value="#{bundle.CreateVoitureLabel_nombrePlace}" for="nombrePlace" />
+                            <p:inputText id="nombrePlace" value="#{workerController.voiture.nombrePlace}" title="#{bundle.CreateVoitureTitle_nombrePlace}" />
+
+<!--                            <p:outputLabel value="# {bundle.CreateVoitureLabel_ratting}" for="ratting" />
+                            <p:inputText id="ratting" value="# {workerController.voiture.ratting}" title="# {bundle.CreateVoitureTitle_ratting}" />-->
+
+
+                            <p:commandButton value="Confirmer" actionListener="#{workerController.saveVoiture()}" style="width: 100px;height: 40px;text-align: center" update=":voitureListForm:datalist" />
+
+                        </p:panelGrid>
+                        <p:commandButton value="Chercher" actionListener="#{workerController.searchVoiture()}" style="width: 100px;height: 40px;text-align: center" update=":voitureListForm:datalist" />
+
+                    </p:panel>
+                </h:form>
+
+                <h:form id="voitureListForm">
+                    <p:panel header="Voitures">
+
+                        <p:dataTable id="datalist" value="#{workerController.voitures}" var="item"
+                                     paginator="true"
+                                     rows="4"
+                                     rowsPerPageTemplate="4,8,12,16,20" rowKey="#{item.id}"
+                                     style="margin-top: 15px">
+
+
+                            <p:column headerText="Marque">
+                                <h:outputText value="#{item.modele.marque.nom}" />
+                            </p:column>
+
+                            <p:column headerText="Model">
+                                <h:outputText value="#{item.modele.nom}-#{item.modele.annee}" />
+                            </p:column>
+
+                            <p:column headerText="Carburant">
+                                <h:outputText value="#{item.carburant.nom}" />
+                            </p:column>
+                            <p:column headerText="Prix">
+                                <h:outputText value="#{item.prix}" />
+                            </p:column>
+                            <p:column headerText="Quantité Disponnible">
+                                <h:outputText value="#{item.quantite}" />
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListVoitureTitle_nombrePlace}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nombrePlace}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListVoitureTitle_ratting}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.ratting}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Action"/>
+                                </f:facet>
+                                <p:commandButton icon="ui-icon-trash" actionListener="#{workerController.deleteVoiture(item)}"  update=":voitureCreatForm" />
+                                <p:commandButton icon="ui-icon-pencil" actionListener="#{workerController.prepareUpdate(item)}" update=":voitureCreatForm" />
+                                <!--                                <p:commandButton icon="ui-icon-pencil" actionListener="# {workerController.prepareUpdate(item)}" update="VoitureEditForm" oncomplete="PF('VoitureEditDialog').show()"/>-->
+
+                            </p:column>
+
+
+                        </p:dataTable>
+                    </p:panel>
+
+
+                </h:form>
+
+
+
+            </div>
+        </div>
+
+        <!--        <ui:include src="WorkerVoitureEdit.xhtml"/>-->
+        <script src="../resources/js/popper.min.js"></script>
+        <script src="../resources/bootstrap-4.0.0/js/bootstrap.min.js"></script>
+        <script src="../resources/js/workerProfileJs.js"></script>
+
+    </h:body>
+</html>
+

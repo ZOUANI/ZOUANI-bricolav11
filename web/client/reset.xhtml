@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Facelet Title</title>    
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="../resources/css/workerloginStyle.css"/>
+        <script type="text/javascript" src="../resources/js/script.js"></script>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+        <div class="loginBox">
+            <a href="index.html"><img src="../resources/images/workerLoginUserLogo.png" class="user"/></a>
+            <h2>Se connecter</h2>
+            <h:form>
+                <br></br>
+                <br></br>
+                <p>Email</p>
+                <p:inputText id="login" value="#{clientController.selected.login}" title="Email" class="input"/>
+                <p:commandButton class="btn-login " action="#{clientController.resetPassword()}" value="reset Password" update="form-reset" onclick="PF('Reset-Dialog').show()"></p:commandButton>
+               
+            </h:form>
+        </div>
+        <p:dialog id="dialog-id" widgetVar="Reset-Dialog" appendTo="@(body)" modal="true" >
+            <h:form id="form-reset">
+                <p>un code a était envoyer a votre login </p>
+                <p>Token</p>
+                <p:inputText value="#{clientController.selected.token}"></p:inputText>
+                <p:commandButton action="#{clientController.connect()}"></p:commandButton>
+            </h:form>
+        </p:dialog>
+    </h:body> 
+</html>
+

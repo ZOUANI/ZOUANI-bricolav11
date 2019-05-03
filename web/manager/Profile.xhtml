@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Profile</title>
+
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
+        <link rel="shortcut icon" href="../resources/images/symbol.png" type="image/png" sizes="16x22"/>
+
+        <link rel="stylesheet" href="../resources/bootstrap-4.0.0/css/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="../resources/css/workerProfilecss.css"></link>
+
+
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+
+    </h:head>
+
+
+    <h:body>
+
+        <ui:include src="TopNav.xhtml"/>
+
+        <div class="d-flex">
+
+            <ui:include src="SidebarNav.xhtml"/>
+
+            <div class="content p-4">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12 " >
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="Dashboard.xhtml">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Profil</li>
+                            </ol>
+                        </nav>   
+
+                    </div>
+                </div>
+
+
+                <h:form id="dataForm">
+
+                    <p:tabView >
+                        <p:tab title="Informations" id="informationsProfil" >
+
+                            <p:outputLabel value="Login:" style="font-size: 20px;color: rgb(0, 113, 133)" />
+                            <br></br>
+                            <h:outputText value="#{managerController.selected.login}" />
+                            <br></br>
+                            <br></br>
+                            <p:outputLabel value="Nom:" style="font-size: 20px;color: rgb(0, 113, 133)" />
+                            <br></br>
+                            <h:outputText value="#{managerController.selected.nom}" />
+                            <br></br>
+                            <br></br>
+                            <p:outputLabel value="Prenom:" style="font-size: 20px;color: rgb(0, 113, 133)"/>
+                            <br></br>
+                            <h:outputText value="#{managerController.selected.prenom}" />
+                            <br></br>
+                            <br></br>
+                            <p:outputLabel  value="Telephone:" style="font-size: 20px; color: rgb(0, 113, 133)"/>
+                            <br></br>
+                            <h:outputText value="#{managerController.selected.phone}" />
+                        </p:tab>
+
+                        <p:tab title="Mises à jour" id="miseAJour">
+                            <div class="form-group">
+
+                                <p:outputLabel value="Mot de Passe:" for="password" style="font-size: 20px;color: rgb(0, 113, 133)"/>
+                                <p:password id="password" value="#{managerController.selected.password}" title="Password" class="form-control" />
+                                <br></br>
+                                <p:outputLabel value="Nom:" for="nom" style="font-size: 20px;color: rgb(0, 113, 133)"/>
+                                <p:inputText id="nom" value="#{managerController.selected.nom}" title="Nom" class="form-control"/>
+                                <br></br>
+                                <p:outputLabel value="Prenom:" for="prenom" style="font-size: 20px;color: rgb(0, 113, 133)"/>
+                                <p:inputText id="prenom" value="#{managerController.selected.prenom}" title="Prenom" class="form-control" />
+                                <br></br>
+                                <p:outputLabel value="Telephone" for="telephone" style="font-size: 20px;color: rgb(0, 113, 133)"/>
+                                <p:inputText id="telephone" value="#{managerController.selected.phone}" title="Telephone" class="form-control" />
+                                <br></br>
+                                <p:commandButton value="Confirmer" actionListener="#{managerController.miseAJourProfil()}" update="dataForm" class="btn btn-block"/>
+                            </div>
+                        </p:tab>
+                    </p:tabView>
+
+                </h:form>
+            </div>
+        </div>
+
+
+        <script src="../resources/js/popper.min.js"></script>
+        <script src="../resources/bootstrap-4.0.0/js/bootstrap.min.js"></script>
+        <script src="../resources/js/workerProfileJs.js"></script>
+
+    </h:body>
+
+</html>

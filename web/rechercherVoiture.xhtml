@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Facelet Title</title>
+        <link rel="shortcut icon" href="resources/images/symbol.png" type="image/png"/>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+        <link rel="stylesheet" href="resources/bootstrap-4.0.0/css/bootstrap.css" type="text/css" />
+        <link rel="stylesheet" href="resources/css/modern-business-index.css" type="text/css"/>
+        <h:outputScript name="bootstrap-4.0.0/js/bootstrap.js" />
+        <h:outputStylesheet name="MaterialDesignIconic\css\material-design-iconic-font.css"/>
+        <h:outputStylesheet library="css" name="designVoiture.css"/>
+        <h:outputScript name="js/jquery-3.4.0.min.js" />
+
+
+        <style type="text/css">
+            .value {
+                font-weight: bold;
+            }
+        </style>
+
+    </h:head>
+    <h:body id="ttt" >
+        <ui:insert name = "header" >
+            <ui:include src = "navBar.xhtml" />
+        </ui:insert> 
+
+        <h:form id="mainForm">
+
+
+            <p:dataGrid var="voiture" value="#{demandeServiceController.voituresChoixOfClient}" columns="3" layout="grid"
+                        rows="12" paginator="true" id="voitureSearch"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="6,12,16">
+
+                <f:facet name="header">
+                    <p:panelGrid  styleClass="ui-noborder"  style="margin: 0 auto;width: 100%;">
+                        <p:row  style="background-color:#f6f7f9">
+                            <p:column>
+
+                                <p:outputLabel value="ville:" for="ville" style="text-align: left;padding-top: 5px; width: 100px" />
+                            </p:column>
+                            
+                            <p:column>        
+                                <p:selectOneMenu  id="ville" value="#{demandeServiceController.ville}" style="width: 150px;height: 40px"  filter="true" filterMatchMode="startsWith">
+
+                                    <f:selectItem itemValue="#{null}" itemLabel="--Sélectionner--"/>
+                                    <f:selectItems value="#{demandeServiceController.loadVilles()}" 
+                                                   var="ville"
+                                                   itemValue="#{ville}" />
+                                </p:selectOneMenu>
+                            </p:column>
+
+                            <p:column>
+                                <p:outputLabel value="Marque:" for="marqueSearch" style="text-align: left;padding-top: 10px;width: 50px"/>
+                            </p:column>
+
+                            <p:column>
+                                <p:selectOneMenu class="form-control" id="marqueSearch" value="#{demandeServiceController.voitureMarque}" style="width: 150px;height: 40px"  filter="true" filterMatchMode="startsWith">
+                                    <p:ajax  update="modeleSearch" listener="#{demandeServiceController.loadModeles()}"/>
+                                    <f:selectItem itemLabel="--Selectionner--" itemValue="#{null}"/> 
+                                    <f:selectItems value="#{voitureMarqueController.itemsAvailableSelectOne}"  var="item" itemValue="#{item}" itemLabel="#{item.nom}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+
+                            <p:column>
+                                <p:outputLabel for="modeleSearch" value="Modele:"  style="text-align: left;padding-top: 10px;width: 50px" />
+                            </p:column>
+
+                            <p:column>
+                                <p:selectOneMenu class="form-control" id="modeleSearch" value="#{demandeServiceController.demandeVoitureItem.modele}" style="width: 150px;height: 40px"  filter="true" filterMatchMode="startsWith">
+                                    <f:selectItem itemLabel="--Selectionner--" itemValue="#{null}"/> 
+                                    <f:selectItems value="#{demandeServiceController.modeles}" var="item" itemValue="#{item}" itemLabel="#{item.nom}-#{item.annee}"/>
+
+                                </p:selectOneMenu>
+                            </p:column>
+
+
+                        </p:row>
+                        <p:row style="background-color:#f6f7f9" >
+
+
+                            <p:column></p:column>
+
+                            <p:column>
+                                <p:commandButton class="button is-danger is-rounded" value="Rechercher" actionListener="#{demandeServiceController.showVoitureToClient()}" update="voitureSearch" style="width:150px;height: 40px;" />
+                            </p:column>
+                        </p:row>
+
+                    </p:panelGrid>
+                </f:facet>
+
+
+
+                <div class="container" >
+
+                    <div  class="row  card rounded" id="ads">
+
+
+                        <div class="card rounded">
+
+                            <div class="card-image">
+                                <span class="card-notify-badge">Petite</span>
+                                <span class="card-notify-year">#{voiture.modele.annee}</span>
+                                <img class="img-fluid" src="data:image/jpeg;base64,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" alt="Alternate Text" />
+                            </div>
+                            <div class="card-image-overlay m-auto">
+
+                                <span class="card-detail-badge"><i    style="color:white;font-size:18px"  class="zmdi zmdi-money-box"></i> Prix: #{voiture.prix} DH</span>
+
+                                <span class="card-detail-badge"><i    style="color:white;font-size:18px"  class="zmdi zmdi-airline-seat-recline-normal"></i> Places: #{voiture.nombrePlace} </span>
+                                <br></br>
+                                <span class="card-detail-badge"><i  style="color:white;font-size:18px"    class="zmdi zmdi-gas-station"></i> Carburant: #{voiture.carburant} </span>
+
+                            </div>
+                            <div class="card-body text-center">
+                                <div class="ad-title m-auto">
+                                    <h5>#{voiture.modele} </h5>
+                                </div>
+                                <a class="ad-btn" href="#"> RÉSERVER <i  style="color:#cccccc;font-size:20px"  class="zmdi zmdi-chevron-right"></i></a>
+                               
+                                <a class="ad-btn-detail" href="#"> détails <i  style="color:#cccccc; font-size:20px;" class="zmdi zmdi-eye"></i></a>
+                            
+                                
+                                 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p:dataGrid> 
+        </h:form>
+
+
+        <footer id="myFooter" class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img src="resources/images/smartServices.png" style="width:200px;vertical-align: middle"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <h5>Commencer</h5>
+                        <ul>
+                            <li><a href="#">Accueil</a></li>
+                            <li><a href="#">S'inscrire</a></li>
+                            <li><a href="#">Telechargements</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2">
+                        <h5>À propos de nous</h5>
+                        <ul>
+                            <li><a href="#">Informations sur la société</a></li>
+                            <li><a href="#">Contactez nous</a></li>
+                            <li><a href="#">Avis</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2">
+                        <h5>Support</h5>
+                        <ul>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Bureau d'aide</a></li>
+                            <li><a href="#">Forums</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="social-networks">
+                            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                            <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+                        </div>
+                        <button type="button" class="btn">Contactez nous</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>2018 © Tous les droits réservés </p>
+            </div>
+        </footer>
+
+        <ui:include src="ConnexionClient.xhtml"/>
+        <ui:include src="ConnexionWorker.xhtml"/>
+        <ui:include src="InscriptionLocationVoiture.xhtml"/>
+        <ui:include src="InscriptionTravauxMaison.xhtml"/>
+        <h:outputScript name="vanta-master/vendor/three.r92.min.js" />
+        <h:outputScript name="vanta-master/dist/vanta.birds.min.js" />
+        <script>
+            VANTA.BIRDS({
+                el: "#ttt",
+                backgroundColor: 0x164d64,
+                color1: 0x7cdfe6,
+                color2: 0x575143,
+                colorMode: "lerpGradient",
+                wingSpan: 34.00,
+                speedLimit: 3.00,
+                separation: 91.00,
+                alignment: 40.00,
+                cohesion: 48.00
+            })
+
+        </script>
+
+    </h:body>
+</html>
+

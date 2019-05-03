@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <div class="row">
+
+            <h5 class="info-text"> Veuillez remplir le formulaire ci-dessous afin que nous puissions trouver la meilleur formation personelle</h5>
+            <div class="col-sm-12">
+                <p:panelGrid id="infoGrid" styleClass="ui-noborder" style="margin: 0 auto;width: 100%">
+                    <p:row>
+
+                        <p:column>
+                            <p:outputLabel value="Niveau scolaire" for="niveauscolaire" style="text-align: left;padding-top: 10px;width: 100%" />
+                        </p:column>
+
+                        <p:column>
+                            <!--<p:selectOneMenu class="form-control" id="niveauscolaire" value="# {demandeFormationPersonnelController.niveauScolaire}" style="width:170px;height: 40px;text-align: center;padding: 8px 0;">-->
+                            <p:selectOneMenu class="form-control" id="niveauscolaire" value="#{demandeServiceController.niveauScolaire}" style="width:170px;height: 40px;text-align: center;padding: 8px 0;">
+                                <!--<p:ajax event="valueChange" update="filiere"  listener="# {demandeFormationPersonnelController.doActionNiveau(event)}"   />-->
+                                <p:ajax update="filiere"  listener="#{demandeServiceController.doActionNiveau()}"   />
+                                <f:selectItem itemValue="#{null}" itemLabel="Select" />
+                                
+                                <f:selectItems value="#{niveauScolaireController.itemsAvailableSelectOne}" var="item" itemValue="#{item}" itemLabel="#{item.nom}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+
+                        <p:column>
+                            <p:outputLabel value="Filiere" for="filiere" style="text-align: left;padding-top: 10px;width: 100%" />
+                        </p:column>
+
+                        <p:column>
+                            <!--<p:selectOneMenu class="form-control" id="filiere" value="# {demandeFormationPersonnelController.filiere}" style="width:170px;height: 40px;text-align: center;padding: 8px 0;">-->
+                            <p:selectOneMenu class="form-control" id="filiere" value="#{demandeServiceController.demandeFormationPersonnel.filiere}" style="width:140px;height: 40px;text-align: center;padding: 8px 0;">
+                                <!--<p:ajax event="valueChange" update="matiere"  listener="# {demandeFormationPersonnelController.doActionFiliere(event)}"   />-->
+                                <p:ajax update="matiere"  listener="#{demandeServiceController.doActionFiliere()}"   />
+                                <f:selectItem itemValue="#{null}" itemLabel="Select" />
+                                <f:selectItems value="#{demandeServiceController.filieres}" itemValue="#{item}" var="item" itemLabel="#{item.nom}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+
+                    </p:row>
+
+                    <p:row>
+
+                        <p:column>
+                            <p:outputLabel value="Matiere" for="matiere" style="text-align: left;padding-top: 10px;width: 100%" />
+                        </p:column>
+
+                        <p:column>
+                            <p:selectOneMenu class="form-control" id="matiere" value="#{demandeServiceController.demandeFormationPersonnel.matiere}" style="width:170px;height: 40px;text-align: center;padding: 8px 0;">
+                                <f:selectItem itemValue="#{null}" itemLabel="Select" />
+                                <!--<f:selectItems value="# {demandeFormationPersonnelController.matieres}"  itemValue="# {item}" var="item" itemLabel="# {item.nom}"/>-->
+                                <f:selectItems value="#{demandeServiceController.matieres}"  itemValue="#{item}" var="item" itemLabel="#{item.nom}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+
+
+
+
+                        <p:column>
+                            <p:outputLabel for="nbrpersonne" value="Nombre de personnes :" style="text-align: left;padding-top: 10px;width: 100%" />
+                        </p:column>
+
+                        <p:column>
+                            <!--<p:selectOneMenu class="form-control" id="nbrpersonne" value="# {demandeFormationPersonnelController.selected.nbrpersonne}" style="width:170px;height: 40px;text-align: center;padding: 8px 0;">-->
+                            <p:selectOneMenu class="form-control" id="nbrpersonne" value="#{demandeServiceController.demandeFormationPersonnel.nbrpersonne}" style="width:140px;height: 40px;text-align: center;padding: 8px 0;">
+                                <f:selectItem itemValue="#{1}" itemLabel="1 Pers"/>
+                                <f:selectItem itemValue="#{2}" itemLabel="2 Pers"/>
+                                <f:selectItem itemValue="#{3}" itemLabel="3 Pers"/>
+                                <f:selectItem itemValue="#{4}" itemLabel="4 Pers"/>
+                                <f:selectItem itemValue="#{5}" itemLabel="5 Pers"/>
+                                <f:selectItem itemValue="#{6}" itemLabel="6 Pers"/>
+                                <f:selectItem itemValue="#{7}" itemLabel="7 Pers"/>
+                                <f:selectItem itemValue="#{8}" itemLabel="8 Pers"/>
+                                <f:selectItem itemValue="#{9}" itemLabel="9 Pers"/>
+                                <f:selectItem itemValue="#{10}" itemLabel="10 Pers"/>
+
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+
+                        <p:column>
+                            <p:outputLabel value="à domicile ?" for="domicile" style="text-align: left;padding-top: 30px;" />
+                        </p:column>
+
+                        <p:column>
+                            <!--<p:selectBooleanButton id="domicile" class="myBtn" value="# {demandeFormationPersonnelController.selected.adomicile}" onLabel="OUI" offLabel="NO" style="width:170px;height: 40px;text-align: center;padding: 8px 0;" />-->
+                            <p:selectBooleanButton id="domicile" class="myBtn" value="#{demandeServiceController.demandeFormationPersonnel.adomicile}" onLabel="OUI" offLabel="NON" style="width:170px;height: 40px;text-align: center;padding: 8px 0;" />
+                        </p:column>
+                        
+                        <p:column>
+                            <p:outputLabel value="À quelle fréquence?" for="oftenOnce" style="text-align: left;padding-top: 10px;width: 200px" />
+                        </p:column>
+
+                        <p:column>
+                            <p:selectBooleanButton id="oftenOnce" class="myBtn" value="#{demandeServiceController.oneTime}" onLabel="Une Fois" offLabel="Une Fois" style="width:120px;height: 40px;text-align: center;padding: 8px 0;" onchange="PF('ServiceUneFoisDialog').show()" >
+                                <p:ajax listener="#{demandeServiceController.checkOnce()}" update="oftenOnce oftenManyTimes :ServiceUneFoisForm :ServicePlusieursFoisForm"/>
+                            </p:selectBooleanButton>
+
+                            <p:selectBooleanButton id="oftenManyTimes" class="myBtn" value="#{demandeServiceController.multipleTimes}" onLabel="Plusieurs Fois" offLabel="Plusieurs Fois" style="width:120px;height: 40px;text-align: center;padding: 8px 0;" onchange="PF('ServicePlusieursFoisDialog').show()">
+                                <p:ajax listener="#{demandeServiceController.checkMany()}" update="oftenOnce oftenManyTimes :ServiceUneFoisForm :ServicePlusieursFoisForm"/>
+                            </p:selectBooleanButton>
+                        </p:column>
+
+                    </p:row>
+
+
+
+                    <p:column>
+                        <p:outputLabel value="Des instructions spéciales?" for="instructions" style="text-align: left;padding-top: 10px;width: 200px" />
+                    </p:column>
+                    <p:column colspan="3">
+                        <!--<p:inputTextarea rows="6" style="width: 100%"   id="instructions" placeholder="Example: The keys are under the door mat, and the money is on the kitchen counter." value="# {demandeFormationPersonnelController.selected.demandeService.detail}" >-->
+                        <p:inputTextarea rows="6" style="width: 100%"   id="instructions" placeholder="Exemple: Les clés sont sous le paillasson, et l'argent est sur le comptoir de la cuisine." value="#{demandeServiceController.demandeService.detail}" >
+                        </p:inputTextarea>
+                    </p:column>
+
+                    <p:row>
+
+
+                    </p:row>
+
+
+
+                </p:panelGrid>
+            </div>
+
+        </div>
+
+    </ui:composition>
+</html>

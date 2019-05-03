@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+       
+        <div class="row">
+
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Votre premiére demande?</h5>
+                    </div>
+                    <p class="mb-1">1-Si c'est la premiére fois que vous faites une demande, un email contenant votre login et mot de passe sera envoyé à votre boite.</p>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Et aprés?</h5>
+                    </div>
+                    <p class="mb-1">2-Une fois vous avez sauvgarder la demande un email contenant les détails de votre demande sera envoyé à votre boite.</p>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Quand vous allez me contacter?</h5>
+                    </div>
+                    <p class="mb-1">3-Dans un délai maximum de 2 jours on vous contacte pour vous proposer la meilleure offre possible.</p>
+                    <p class="mb-1">Une fois votre demande est confirmé, un email sera envoyé à votre boite.</p>
+                </a>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-sm-2 col-md-offset-5">
+                <!--                <p:commandButton value="Enregistrer" styleClass="white-button" style="width:100%;height: 40px;text-align: center" action="# {demandeServiceController.saveDemande()}" update=":growl"/>  -->
+                <p:commandButton value="Enregistrer" styleClass="btn btn-sucess"  action="#{demandeServiceController.saveDemande()}" update=":growl"/>  
+            </div>
+
+        </div>
+
+    </ui:composition>
+</html>

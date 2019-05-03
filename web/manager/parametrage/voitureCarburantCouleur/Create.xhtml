@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VoitureCarburantCouleurCreateDlg" widgetVar="VoitureCarburantCouleurCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateVoitureCarburantCouleurTitle}">
+            <h:form id="VoitureCarburantCouleurCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{voitureCarburantCouleurController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateVoitureCarburantCouleurLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{voitureCarburantCouleurController.selected.id}" title="#{bundle.CreateVoitureCarburantCouleurTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateVoitureCarburantCouleurLabel_carburant}" for="carburant" />
+                        <p:selectOneMenu id="carburant" value="#{voitureCarburantCouleurController.selected.carburant}" >
+                            <f:selectItems value="#{carburantController.itemsAvailableSelectOne}"
+                                           var="carburantItem"
+                                           itemValue="#{carburantItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateVoitureCarburantCouleurLabel_couleur}" for="couleur" />
+                        <p:selectOneMenu id="couleur" value="#{voitureCarburantCouleurController.selected.couleur}" >
+                            <f:selectItems value="#{couleurController.itemsAvailableSelectOne}"
+                                           var="couleurItem"
+                                           itemValue="#{couleurItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateVoitureCarburantCouleurLabel_voiture}" for="voiture" />
+                        <p:selectOneMenu id="voiture" value="#{voitureCarburantCouleurController.selected.voiture}" >
+                            <f:selectItems value="#{voitureController.itemsAvailableSelectOne}"
+                                           var="voitureItem"
+                                           itemValue="#{voitureItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{voitureCarburantCouleurController.create}" value="#{bundle.Save}"  update="display, :parametrageTab:VoitureCarburantCouleurListForm:datalist,:growl" oncomplete="handleSubmit(args,'VoitureCarburantCouleurCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VoitureCarburantCouleurCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

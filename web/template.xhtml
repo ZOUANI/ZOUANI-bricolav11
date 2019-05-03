@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:view contentType="text/html" locale="fr">
+        <h:head>
+            <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+            <meta name="viewport" content="width=device-width" />
+            <link rel="shortcut icon" href="resources/images/symbol.png" type="image/png"/>
+            <h:outputStylesheet library="css" name="jsfcrud.css"/>
+            <h:outputScript library="js" name="jsfcrud.js"/>
+            <h:outputStylesheet name="bootstrap-3.3.6/css/bootstrap.min.css"/>
+            <h:outputStylesheet name="css/modern-business.css"/>
+            <h:outputStylesheet name="MaterialDesignIconic\css\material-design-iconic-font.css"/>
+
+
+
+
+        </h:head>
+
+        <h:body style="background-image: url('../resources/images/managerbg.png')">
+            <p:growl id="growl" life="5000" showDetail="true"/>
+
+
+            <h:form id="menuForm" style="margin: 0px">
+
+                <div class="aboveNav" style="padding: 0px; margin: 0px">
+
+
+
+                    <div class="row" style="padding: 0px; margin: 0px" >
+                        <div class="col-md-3">
+                            <i class="fa fa-map-marker"><h4>11 Résidence BAB Al Manar Marrakech</h4></i>
+                        </div>
+                        <div class="col-md-3">
+                            <i class="fa fa-clock-o"><h4>Lun – Sam: 9:00–18:00</h4> </i>
+                        </div>
+
+                        <div class="col-md-2">
+                            <i class="fa fa-envelope"><h4>clients@bricola.ma</h4> </i>
+                        </div>
+                        <div class="col-md-2">
+                            <i class="fa fa-phone"><h4>+212 5 24059716 </h4> </i>
+                        </div>
+                        <div class="col-md-2">
+
+                            <div class="aboveNavSocial">
+                                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                                <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <nav class="navbar" role="navigation">
+
+
+
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <p:commandLink class="navbar-brand" action="#{demandeServiceController.redirectToIndex()}"> 
+                            <p:graphicImage value="/resources/images/logo.png" style="width:120px;vertical-align: middle;margin: 0px;" alt="EDE logo"/>
+                        </p:commandLink>
+
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <!--                            <li class="nav-item">
+                                                            <p:commandLink  class="nav-link" action="# {demandeServiceController.initService2('nettoyageMaison')}">
+                                                                <h:outputText value="Nettoyage Maison" style="font-size: 16px"/> 
+                                                            </p:commandLink>
+                                                        </li>-->
+
+                            <!--                            <li class="nav-item dropdown">
+                                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCleaningServices" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                Travaux maison
+                                                            </a>
+                                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownCleaningServices">
+                                                                <p:commandLink  class="nav-link" action="# {demandeServiceController.initService2('nettoyageMaison')}" style="color:  black;">
+                                                                    Ménage 
+                                                                </p:commandLink><br></br>
+                                                                <p:commandLink  class="nav-link" action="# {demandeServiceController.initService2('peinture')}" style="color:  black;">
+                                                                    Peinture 
+                                                                </p:commandLink><br></br>
+                                                                <p:commandLink  class="nav-link" action="# {demandeServiceController.initService2('electricite')}" style="color:  black;">
+                                                                    Electricite 
+                                                                </p:commandLink><br></br>
+                                                                <p:commandLink  class="nav-link" action="# {demandeServiceController.initService2('plomberie')}" style="color:  black;">
+                                                                    Plomberie 
+                                                                </p:commandLink><br></br>
+                                                                <p:commandLink  class="nav-link" action="# {demandeServiceController.initService2('menuiserie')}" style="color:  black;">
+                                                                    Menuiserie 
+                                                                </p:commandLink>
+                            
+                                                            </div>
+                                                        </li>-->
+
+                           
+
+                            <!--                            <li class="nav-item">
+                                                            <p:commandLink  class="nav-link" action="# {demandeServiceController.initService2('formationpersonnel')}">
+                                                                <h:outputText value="Formation Personnel" style="font-size: 16px"/> 
+                                                            </p:commandLink>
+                                                        </li>-->
+
+                            <li class="nav-item ">
+                                <p:commandLink  class="nav-link" action="#{demandeServiceController.initService2('locationvoiture')}">
+                                    <h:outputText value="Location Voiture" style="font-size: 16px"/> 
+                                </p:commandLink>
+                            </li>
+
+
+                            <!--                            <li class="nav-item dropdown">
+                                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCleaningServices" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                Fourisseur de Service ?
+                                                            </a>
+                                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownCleaningServices">
+                                                                <p:commandLink  class="nav-link" action="# {clientController.showInscriptionTravauxMaisonForm()}" update=":InscriptionTravauxMaisonDlg" >
+                                                                    <h:outputText value="Travaux de Maison" style="font-size: 16px"/>
+                                                                </p:commandLink><br></br>
+                                                                <p:commandLink  class="nav-link" action="# {clientController.showInscriptionLocationVoitureForm()}" update=":InscriptionLocationVoitureDlg" >
+                                                                    <h:outputText value="Location de Voiture" style="font-size: 16px"/>
+                                                                </p:commandLink><br></br>
+                            
+                                                            </div>
+                                                        </li>-->
+
+                            <li class="nav-item">
+                                <p:commandLink  class="nav-link" action="#{clientController.showLoginForm()}" update=":ClientConnexionDlg">
+                                    <h:outputText value="Espace Client" style="font-size: 16px"/>
+                                </p:commandLink>
+                            </li>
+
+                            <li class="nav-item">
+                                <p:commandLink  class="nav-link" action="#{clientController.showInscriptionLocationVoitureForm()}" update=":InscriptionLocationVoitureDlg" >
+                                    <h:outputText value="Inscription Agence" style="font-size: 16px"/>
+                                </p:commandLink><br></br>
+                            </li>
+
+
+
+                            <li class="nav-item">
+                                <p:commandLink  class="nav-link" action="#{workerController.showLoginForm()}" update=":WorkerConnexionDlg">
+                                    <h:outputText value="Espace Agence" style="font-size: 16px"/>
+                                </p:commandLink>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+
+                    <!-- /.container -->
+                </nav>
+            </h:form>
+
+            <p:layoutUnit position="center" id="pageLayout" >
+                <ui:insert name="body"/>
+            </p:layoutUnit>
+
+            <ui:include src="ConnexionClient.xhtml"/>
+            <ui:include src="ConnexionWorker.xhtml"/>
+            <ui:include src="InscriptionTravauxMaison.xhtml"/>
+            <ui:include src="InscriptionLocationVoiture.xhtml"/>
+
+        </h:body>
+    </f:view>
+</html>

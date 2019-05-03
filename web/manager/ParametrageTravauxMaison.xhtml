@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Profile</title>
+
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
+        <link rel="shortcut icon" href="../resources/images/symbol.png" type="image/png" sizes="16x22"/>
+
+        <link rel="stylesheet" href="../resources/bootstrap-4.0.0/css/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="../resources/css/workerProfilecss.css"></link>
+
+
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+
+    </h:head>
+
+
+    <h:body>
+        <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+        <ui:include src="TopNav.xhtml"/>
+
+        <div class="d-flex">
+
+            <ui:include src="SidebarNav.xhtml"/>
+
+            <div class="content p-4">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12 " >
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="Dashboard.xhtml">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Configuration</li>
+                            </ol>
+                        </nav>   
+
+                    </div>
+                </div>
+
+
+
+                <p:tabView id="parametrageTab">
+                   
+                   
+
+                  
+                   
+
+                    <p:tab title="CuisineType">
+                        <ui:include src="parametrage/cuisineType/List.xhtml"/>
+                    </p:tab>
+
+                    
+                    <p:tab title="EventBudget">
+                        <ui:include src="parametrage/eventBudget/List.xhtml"/>
+                    </p:tab>
+
+                    <p:tab title="EventType">
+                        <ui:include src="parametrage/eventType/List.xhtml"/>
+                    </p:tab>
+
+<!--                    <p:tab title="Faq">
+                        <ui:include src="parametrage/faq/List.xhtml"/>
+                    </p:tab>-->
+
+                    <p:tab title="Filiere">
+                        <ui:include src="parametrage/filiere/List.xhtml"/>
+                    </p:tab>
+
+                    <p:tab title="FormateurJob">
+                        <ui:include src="parametrage/formateurJob/List.xhtml"/>
+                    </p:tab>
+
+                    <p:tab title="FormationProSubtype">
+                        <ui:include src="parametrage/formationProSubtype/List.xhtml"/>
+                    </p:tab>
+
+                    <p:tab title="FormationProtype">
+                        <ui:include src="parametrage/formationProtype/List.xhtml"/>
+                    </p:tab>
+
+                    <p:tab title="GardeningType">
+                        <ui:include src="parametrage/gardeningType/List.xhtml"/>
+                    </p:tab>
+
+                    <p:tab title="HandymanType">
+                        <ui:include src="parametrage/handymanType/List.xhtml"/>
+                    </p:tab>
+
+                    <p:tab title="Home">
+                        <ui:include src="parametrage/home/List.xhtml"/>
+                    </p:tab>
+
+                    <p:tab title="HomeType">
+                        <ui:include src="parametrage/homeType/List.xhtml"/>
+                    </p:tab>
+
+                  
+                    <p:tab title="Matiere">
+                        <ui:include src="parametrage/matiere/List.xhtml"/>
+                    </p:tab>
+
+               
+                    <p:tab title="NiveauScolaire">
+                        <ui:include src="parametrage/niveauScolaire/List.xhtml"/>
+                    </p:tab>
+
+                   
+
+                    <p:tab title="PaintingType">
+                        <ui:include src="parametrage/paintingType/List.xhtml"/>
+                    </p:tab>
+
+                  
+                    <p:tab title="PestControlType">
+                        <ui:include src="parametrage/pestControlType/List.xhtml"/>
+                    </p:tab>
+
+                    <p:tab title="PhotographieType">
+                        <ui:include src="parametrage/photographieType/List.xhtml"/>
+                    </p:tab>
+
+<!--                    <p:tab title="Planning">
+                        <ui:include src="parametrage/planning/List.xhtml"/>
+                    </p:tab>
+
+                    <p:tab title="PlanningItem">
+                        <ui:include src="parametrage/planningItem/List.xhtml"/>
+                    </p:tab>-->
+
+                    <p:tab title="ProfJob">
+                        <ui:include src="parametrage/profJob/List.xhtml"/>
+                    </p:tab>
+
+                    
+                    <p:tab title="Review">
+                        <ui:include src="parametrage/review/List.xhtml"/>
+                    </p:tab>
+
+                    
+
+<!--                    <p:tab title="SupplementDemandeEvent">
+                        <ui:include src="parametrage/supplementDemandeEvent/List.xhtml"/>
+                    </p:tab>-->
+
+                    <p:tab title="SupplementEvent">
+                        <ui:include src="parametrage/supplementEvent/List.xhtml"/>
+                    </p:tab>
+
+                    <p:tab title="Timing">
+                        <ui:include src="parametrage/timing/List.xhtml"/>
+                    </p:tab>
+
+                  
+
+                </p:tabView>
+
+            </div>
+        </div>
+
+
+        <script src="../resources/js/popper.min.js"></script>
+        <script src="../resources/bootstrap-4.0.0/js/bootstrap.min.js"></script>
+        <script src="../resources/js/workerProfileJs.js"></script>
+
+    </h:body>
+
+</html>

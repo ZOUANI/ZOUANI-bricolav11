@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition>
+
+        <p:dialog id="SocieteVoitureDlg" widgetVar="SocieteVoitureDialog" modal="true" resizable="false" appendTo="@(body)" width="90%" height="800">
+
+            <h:form id="SocieteVoitureListForm">
+
+                <p:dataTable id="societeVoitureList" var="voiture" value="#{demandeServiceController.voituresChoixOfClient}"
+                             selectionMode="single"  rowKey="#{voiture.id}"
+                             selection="#{demandeServiceController.voiture}"
+                             paginatorPosition="bottom"
+                             paginator="true" scrollable="true"  
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50" style="margin-top: 30px">
+
+                    <f:facet name="header">
+                        <p:panelGrid columns="9">
+                            <p:outputLabel value="Ville" for="villeSearch"/>
+
+                            <p:selectOneMenu class="form-control" id="villeSearch" value="#{demandeServiceController.demandeVoitureItem.worker.secteur.ville}" filter="true" filterMatchMode="startsWith" >
+                                <p:ajax listener="#{managerController.doAction}" />
+                                <f:selectItem itemValue="#{null}" itemLabel="--Selectionner--"/>
+                                <f:selectItems value="#{managerController.loadVilles()}" 
+                                               var="ville"
+                                               itemValue="#{ville}"
+                                               />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Marque" for="marqueSearch"/>
+
+                            <p:selectOneMenu class="form-control" id="marqueSearch" value="#{demandeServiceController.voitureMarque}" filter="true" filterMatchMode="startsWith" >
+                                <p:ajax  update="modeleSearch" listener="#{demandeServiceController.loadModeles()}"/>
+                                <f:selectItem itemValue="#{null}" itemLabel="--Selectionner--"/>
+                                <f:selectItems value="#{voitureMarqueController.itemsAvailableSelectOne}"  var="item" itemValue="#{item}" itemLabel="#{item.nom}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel for="modeleSearch" value="Modele" />
+
+                            <p:selectOneMenu class="form-control" id="modeleSearch" value="#{demandeServiceController.demandeVoitureItem.modele}" filter="true" filterMatchMode="startsWith" >
+                                <f:selectItem itemValue="#{null}" itemLabel="--Selectionner--"/>
+                                <f:selectItems value="#{demandeServiceController.modeles}" var="item" itemValue="#{item}" itemLabel="#{item.nom}"/>
+
+                            </p:selectOneMenu>
+                            <p:outputLabel for="fuelSearch" value="Carburant" />
+
+                            <p:selectOneMenu class="form-control" id="fuelSearch" value="#{demandeServiceController.demandeVoitureItem.carburant}" filter="true" filterMatchMode="startsWith" >
+
+                                <f:selectItem itemValue="#{null}" itemLabel="--Selectionner--"/>
+                                <f:selectItems value="#{carburantController.itemsAvailableSelectOne}" var="carburant" itemValue="#{carburant}"/>
+                            </p:selectOneMenu>
+
+                            <p:commandButton value="Search" actionListener="#{demandeServiceController.searchVoitureForClient()}" update=":demandeForm:infoGrid societeVoitureList" />
+
+                        </p:panelGrid>
+                    </f:facet>
+                    <p:column>
+
+                        <span class="row" style="display:block;margin-top: 10px" >
+                            <span class="col-sm-3" style="display:block">
+                                <!--                                <img src="http://dummyimage.com/60x60/666/ffffff&amp;text=No+Image" class="img-rounded"/>-->
+                                <span class="review-block-name" style="display:block">Prix: <strong>#{voiture.prix} DH</strong> </span>
+                                <span class="review-block-name" style="display:block">Modele: <strong>#{voiture.modele}</strong> </span>
+                                <span class="review-block-name" style="display:block">Carburant:<strong> #{voiture.carburant.nom}</strong></span>
+                                <span class="review-block-name" style="display:block">Nbr Disponnible:<strong> #{voiture.quantite}</strong></span>
+
+                            </span>
+                            <span class="col-sm-4" style="display:block">
+
+                                <span class="review-block-name" style="display:block"><strong> #{voiture.worker.nom}</strong></span>
+                                <span class="review-block-name" style="display:block">Tel:<strong> #{voiture.worker.phone}</strong></span>
+                                <span class="review-block-name" style="display:block">Email<strong> #{voiture.worker.login}</strong></span>
+                                <span class="review-block-name" style="display:block">Adresse: <strong> #{workerController.afficherAdresse(voiture.worker)}</strong></span>
+
+                            </span>
+
+                            <span class="col-sm-3" style="display:block">
+
+                                <span class="review-block-rate" style="display:block">
+                                    <c:forEach var="i" begin="1" end="4" step="1">
+                                        <span class="fa fa-star starChecked"></span>
+                                    </c:forEach>
+                                    <c:forEach var="i" begin="4" end="6"  step="1">
+                                    <span class="fa fa-star"></span>
+                                    </c:forEach>
+<!--                                    <span class="fa fa-star starChecked"></span>
+                                    <span class="fa fa-star starChecked"></span>
+                                    <span class="fa fa-star starChecked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>-->
+                                </span>
+                            </span>
+                            <span class="col-sm-2" style="display:block">
+                                <span class="ml-3"><p:commandButton actionListener="#{demandeServiceController.chooseVoiture(voiture)}" icon="ui-icon-check" oncomplete="PF('SocieteVoitureDialog').hide() "  update=":demandeForm:infoGrid"  /></span>
+                            </span>
+                        </span>
+                    </p:column>
+
+
+                </p:dataTable>
+            </h:form>
+
+
+        </p:dialog>
+
+    </ui:composition>
+</html>

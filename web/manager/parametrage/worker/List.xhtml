@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <h:form id="WorkerListForm">
+
+        <p:panel header="#{bundle.ListWorkerSearch}">
+            <p:outputLabel value="#{bundle.CreateServicePricingLabel_service}" for="service" />
+            <p:selectOneMenu id="service" value="#{workerController.serviceRecherche}" >
+                <f:selectItems value="#{serviceController.itemsAvailableSelectOne}"
+                               var="serviceItem"
+                               itemValue="#{serviceItem}"/>
+            </p:selectOneMenu>
+            <p:commandButton actionListener="#{workerController.findByService()}" update="datalist" value="Search"></p:commandButton>
+        </p:panel>
+        <p:panel header="#{bundle.ListWorkerTitle}">
+            <p:dataTable id="datalist" value="#{workerController.items}" var="item"
+                         selectionMode="single" selection="#{workerController.selected}"
+                         paginator="true"
+                         rowKey="#{item.login}"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         >
+
+                <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListWorkerTitle_login}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.login}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListWorkerTitle_password}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.password}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListWorkerTitle_nom}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nom}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListWorkerTitle_nombreEmploye}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombreEmploye}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListWorkerTitle_siteWeb}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.siteWeb}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListWorkerTitle_phone}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.phone}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListWorkerTitle_secteur}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.secteur}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListWorkerTitle_complementAdresse}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.complementAdresse}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListWorkerTitle_workerType}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.workerType.name}"/>
+                </p:column>
+                <!--                <p:column headerText="Bloqué">
+                                    <h:outputText value="# {item.blocked? 'Oui':'Non'}" style="color: # {item.blocked? 'red':'green'}"/>
+                                </p:column>-->
+
+                <p:column headerText="Confirmé">
+                    <h:outputText value="#{item.accepted? 'Oui':'Non'}" style="color: #{item.accepted? 'green':'red'}" />
+                </p:column>
+
+                <p:column headerText="Action">
+                    <p:commandButton icon="fa  fa-star-half-o" title="Reviews" actionListener="#{workerController.prepareReviews(item)}" oncomplete="PF('WorkerReviewDialog').show()" update=":parametrageTab:WorkerReviewForm"/>
+                    <p:commandButton icon="fa fa-check" title="Accepte" actionListener="#{workerController.accepter(item)}" rendered="#{!item.accepted}" update="datalist"/>
+                </p:column>
+
+                <f:facet name="footer">
+                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{workerController.prepareCreate}" update=":parametrageTab:WorkerCreateForm" oncomplete="PF('WorkerCreateDialog').show()"/>
+                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":parametrageTab:WorkerViewForm" oncomplete="PF('WorkerViewDialog').show()" disabled="#{empty workerController.selected}"/>
+                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":parametrageTab:WorkerEditForm" oncomplete="PF('WorkerEditDialog').show()" disabled="#{empty workerController.selected}"/>
+                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{workerController.destroy}" update=":growl,datalist" disabled="#{empty workerController.selected}"/>
+                </f:facet>
+            </p:dataTable>
+        </p:panel>
+    </h:form>
+
+    <ui:include src="Create.xhtml"/>
+    <ui:include src="Edit.xhtml"/>
+    <ui:include src="View.xhtml"/>
+    <ui:include src="WorkerReview.xhtml"/>
+
+
+
+
+</html>
