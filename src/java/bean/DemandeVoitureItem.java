@@ -35,12 +35,15 @@ public class DemandeVoitureItem implements Serializable {
     @ManyToOne
     private VoitureModele modele;
     private BigDecimal prix;
+    private BigDecimal prixUnitaire;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateDebut;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateFin;
     private int quantite;
     private int nbrJour;
+    
+    
     public Long getId() {
         return id;
     }
@@ -48,6 +51,15 @@ public class DemandeVoitureItem implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public BigDecimal getPrixUnitaire() {
+        return prixUnitaire;
+    }
+
+    public void setPrixUnitaire(BigDecimal prixUnitaire) {
+        this.prixUnitaire = prixUnitaire;
+    }
+    
 
     public DemandeVoiture getDemandeVoiture() {
         if(demandeVoiture == null){
@@ -156,7 +168,9 @@ public class DemandeVoitureItem implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.DemandeVoitureItem[ id=" + id + " ]";
+        return "DemandeVoitureItem{" + "carburant=" + carburant.getNom() + ", worker=" + worker.getNom() + ", modele=" + modele.getNom() + ", prix=" + prix + ", prixUnitaire=" + prixUnitaire + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", quantite=" + quantite + ", nbrJour=" + nbrJour + '}';
     }
+
+   
     
 }

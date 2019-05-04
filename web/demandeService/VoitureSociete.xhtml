@@ -23,37 +23,37 @@
 
                     <f:facet name="header">
                         <p:panelGrid columns="9">
-                            <p:outputLabel value="Ville" for="villeSearch"/>
+<!--                            <p:outputLabel value="Ville" for="villeSearch"/>-->
 
                             <p:selectOneMenu class="form-control" id="villeSearch" value="#{demandeServiceController.demandeVoitureItem.worker.secteur.ville}" filter="true" filterMatchMode="startsWith" >
                                 <p:ajax listener="#{managerController.doAction}" />
-                                <f:selectItem itemValue="#{null}" itemLabel="--Selectionner--"/>
+                                <f:selectItem itemValue="#{null}" itemLabel="--Ville--"/>
                                 <f:selectItems value="#{managerController.loadVilles()}" 
                                                var="ville"
                                                itemValue="#{ville}"
                                                />
                             </p:selectOneMenu>
 
-                            <p:outputLabel value="Marque" for="marqueSearch"/>
+<!--                            <p:outputLabel value="Marque" for="marqueSearch"/>-->
 
                             <p:selectOneMenu class="form-control" id="marqueSearch" value="#{demandeServiceController.voitureMarque}" filter="true" filterMatchMode="startsWith" >
                                 <p:ajax  update="modeleSearch" listener="#{demandeServiceController.loadModeles()}"/>
-                                <f:selectItem itemValue="#{null}" itemLabel="--Selectionner--"/>
+                                <f:selectItem itemValue="#{null}" itemLabel="--Marque--"/>
                                 <f:selectItems value="#{voitureMarqueController.itemsAvailableSelectOne}"  var="item" itemValue="#{item}" itemLabel="#{item.nom}"/>
                             </p:selectOneMenu>
 
-                            <p:outputLabel for="modeleSearch" value="Modele" />
+<!--                            <p:outputLabel for="modeleSearch" value="Modele" />-->
 
                             <p:selectOneMenu class="form-control" id="modeleSearch" value="#{demandeServiceController.demandeVoitureItem.modele}" filter="true" filterMatchMode="startsWith" >
-                                <f:selectItem itemValue="#{null}" itemLabel="--Selectionner--"/>
+                                <f:selectItem itemValue="#{null}" itemLabel="--Modele--"/>
                                 <f:selectItems value="#{demandeServiceController.modeles}" var="item" itemValue="#{item}" itemLabel="#{item.nom}"/>
 
                             </p:selectOneMenu>
-                            <p:outputLabel for="fuelSearch" value="Carburant" />
+<!--                            <p:outputLabel for="fuelSearch" value="Carburant" />-->
 
                             <p:selectOneMenu class="form-control" id="fuelSearch" value="#{demandeServiceController.demandeVoitureItem.carburant}" filter="true" filterMatchMode="startsWith" >
 
-                                <f:selectItem itemValue="#{null}" itemLabel="--Selectionner--"/>
+                                <f:selectItem itemValue="#{null}" itemLabel="--Carburant--"/>
                                 <f:selectItems value="#{carburantController.itemsAvailableSelectOne}" var="carburant" itemValue="#{carburant}"/>
                             </p:selectOneMenu>
 
@@ -84,17 +84,10 @@
                             <span class="col-sm-3" style="display:block">
 
                                 <span class="review-block-rate" style="display:block">
-                                    <c:forEach var="i" begin="1" end="4" step="1">
-                                        <span class="fa fa-star starChecked"></span>
+                                    <c:forEach var="i" begin="1" end="6" step="1">
+                                        <span class="fa fa-star #{demandeServiceController.startChechecked(voiture, i)}"></span>
                                     </c:forEach>
-                                    <c:forEach var="i" begin="4" end="6"  step="1">
-                                    <span class="fa fa-star"></span>
-                                    </c:forEach>
-<!--                                    <span class="fa fa-star starChecked"></span>
-                                    <span class="fa fa-star starChecked"></span>
-                                    <span class="fa fa-star starChecked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>-->
+                                   
                                 </span>
                             </span>
                             <span class="col-sm-2" style="display:block">

@@ -219,11 +219,19 @@ public class DemandeServiceController implements Serializable {
     private List<Voiture> voituresChoixOfClient;
     private String nomService;
 
+    public String startChechecked(Voiture voiture, int i) {
+        int ratting = (int) voiture.getRatting();
+        System.out.println("ratting = " + ratting + " and i=" + i);
+        return (i <= ratting) ? "starChecked" : "";
+    }
+
     public void chooseVoiture(Voiture voiture) {
         demandeVoitureItem.setWorker(voiture.getWorker());
-        demandeVoitureItem.setModele(voiture.getModele());
         voitureMarque = voiture.getModele().getMarque();
+        modeles = modeleFacade.findByMarque(voiture.getModele().getMarque());
+        demandeVoitureItem.setModele(voiture.getModele());
         demandeVoitureItem.setCarburant(voiture.getCarburant());
+        demandeVoitureItem.setPrixUnitaire(voiture.getPrix());
     }
 
     public void recherche() {

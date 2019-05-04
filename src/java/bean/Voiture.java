@@ -37,10 +37,20 @@ public class Voiture implements Serializable {
     private BigDecimal prix;
     private int nombrePlace;
     private double ratting;
+    private int nombreVote;
 
     @OneToMany(mappedBy = "voiture")
     private List<VoitureImage> imageVoitures;
 
+    public int getNombreVote() {
+        return nombreVote;
+    }
+
+    public void setNombreVote(int nombreVote) {
+        this.nombreVote = nombreVote;
+    }
+
+    
     public int getNombrePlace() {
         return nombrePlace;
     }

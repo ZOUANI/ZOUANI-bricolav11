@@ -33,14 +33,33 @@ public class Worker extends User {
     private Secteur secteur;
     private String complementAdresse;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date dateInscription= new Date();
+    private Date dateInscription = new Date();
     private double latitude;
     private double longitude;
+    private double ratting;
+    private int nombreVote;
 
     //private List<Device> devices; hta nchof apres wach nkhliwha ola la 
     public Worker() {
     }
 
+    public double getRatting() {
+        return ratting;
+    }
+
+    public void setRatting(double ratting) {
+        this.ratting = ratting;
+    }
+
+    public int getNombreVote() {
+        return nombreVote;
+    }
+
+    public void setNombreVote(int nombreVote) {
+        this.nombreVote = nombreVote;
+    }
+
+    
     public boolean isAccepted() {
         return accepted;
     }
