@@ -94,6 +94,7 @@ public class ManagerController implements Serializable {
     private Manager selected;
     private Ville ville;
     private Client client;
+    private Worker worker;
     private Client clientRecherche;
     private Secteur secteur;
     private Service service;
@@ -255,7 +256,7 @@ public class ManagerController implements Serializable {
     }
 
     public void rechercheDemandeVoiture() {
-        demandeVoitures = demandeVoitureFacade.rechercher(clientRecherche, etatRecherche, dateMin, dateMax);
+        demandeVoitures = demandeVoitureFacade.rechercher(clientRecherche,SessionUtil.getConnectedWorker(), etatRecherche, dateMin, dateMax);
     }
 
     public void findWorkerByCriteria() {
@@ -322,7 +323,10 @@ public class ManagerController implements Serializable {
 
     public void initClientInfo(DemandeService demandeService) {
         client = demandeService.getClient();
-        System.out.println("info client : " + client);
+    }
+
+    public void initWorkerInfo(DemandeVoitureItem demandeVoitureItem) {
+        worker = demandeVoitureItem.getWorker();
     }
 
     public String seDeConnnecter() {
@@ -832,6 +836,17 @@ public class ManagerController implements Serializable {
         this.client = client;
     }
 
+    public Worker getWorker() {
+        if (worker == null) {
+            worker = new Worker();
+        }
+        return worker;
+    }
+
+    public void setWorker(Worker worker) {
+        this.worker = worker;
+    }
+
     public BarChartModel getBarCharModel() {
         return barCharModel;
     }
@@ -999,7 +1014,8 @@ public class ManagerController implements Serializable {
 
     public List<DemandeVoitureItem> getDemandeVoitureItems() {
         if (demandeVoitureItems == null) {
-            demandeVoitureItems = demandeVoitureItemFacade.findAll();
+            demandeVoitureItems = new ArrayList();
+                    //demandeVoitureItemFacade.findAll();
         }
         return demandeVoitureItems;
     }
@@ -1028,7 +1044,11 @@ public class ManagerController implements Serializable {
 //    }
     public List<DemandeVoiture> getDemandeVoitures() {
         if (demandeVoitures == null) {
-            demandeVoitures = demandeVoitureFacade.findAll();
+            if (SessionUtil.isManageronnected()) {
+                demandeVoitures = demandeVoitureFacade.findAll();
+            }else if (SessionUtil.isWorkerConnected()) {
+                demandeVoitures = demandeVoitureFacade.rechercher(clientRecherche, SessionUtil.getConnectedWorker(), etatRecherche, dateMin, dateMax);
+            }
         }
         return demandeVoitures;
     }

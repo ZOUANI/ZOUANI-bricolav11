@@ -9,16 +9,15 @@ import bean.Client;
 import bean.DemandeService;
 import bean.DemandeVoiture;
 import bean.DemandeVoitureItem;
-import bean.VoiturePricing;
+import bean.Worker;
 import controller.util.DateUtil;
 import controller.util.PdfUtil;
+import controller.util.SearchUtil;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -55,7 +54,7 @@ public class DemandeVoitureFacade extends AbstractFacade<DemandeVoiture> {
             demandeVoiture = new DemandeVoiture();
         }
         demandeVoiture.setDemandeService(demandeService);
-        
+
         demandeServiceFacade.edit(demandeService);
         demandeVoiture.setId(generateId("DemandeVoiture", "id"));
         create(demandeVoiture);
@@ -63,7 +62,6 @@ public class DemandeVoitureFacade extends AbstractFacade<DemandeVoiture> {
 
     }
 
-    
     public DemandeVoiture findByDemandeService(DemandeService demandeService) {
 
         String requette = "select dv from DemandeVoiture dv where dv.demandeService.id = '" + demandeService.getId() + "'";
@@ -71,10 +69,12 @@ public class DemandeVoitureFacade extends AbstractFacade<DemandeVoiture> {
 
     }
 
-    public List<DemandeVoiture> rechercher(Client clientRecherche, int etatRecherche, Date dateMin, Date dateMax) {
+    public List<DemandeVoiture> rechercher(Client clientRecherche, Worker worker, int etatRecherche, Date dateMin, Date dateMax) {
 
-        String requete = "select dv from DemandeVoiture dv where 1=1";
-
+        String requete = "select dv from DemandeVoiture dv, DemandeVoitureItem dvItem where dvItem.demandeVoiture.id=dv.id";
+        if (worker != null) {
+            requete += SearchUtil.addConstraint("dvItem", "worker.login", "=", worker.getLogin());
+        }
         if (clientRecherche != null && clientRecherche.getEmail() != null) {
             requete += " and dv.demandeService.client.email = '" + clientRecherche.getEmail() + "'";
         }
@@ -99,8 +99,8 @@ public class DemandeVoitureFacade extends AbstractFacade<DemandeVoiture> {
     public void generatePdf(DemandeVoiture demandeVoiture) throws JRException, IOException {
 
         List<DemandeVoitureItem> demandeVoitureItems = demandeVoitureItemFacade.findByDemandeVoiture(demandeVoiture);
-        
-        System.out.println("hahiya la liste : "+demandeVoitureItems);
+
+        System.out.println("hahiya la liste : " + demandeVoitureItems);
 
         Map< String, Object> params = new HashMap<>();
         //params.put("typeCompte", compte.getTypeCompte());
@@ -116,8 +116,5 @@ public class DemandeVoitureFacade extends AbstractFacade<DemandeVoiture> {
         PdfUtil.generatePdf(demandeVoitureItems, params, "Demande Voiture N_" + demandeVoiture.getId(), "/report/demandeVoiture.jasper");
 
     }
-    
-}
 
-    
-    
+}

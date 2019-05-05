@@ -1,6 +1,8 @@
 package controller.util;
 
 import bean.Client;
+import bean.Manager;
+import bean.Worker;
 import java.io.IOException;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -26,6 +28,27 @@ public class SessionUtil {
 
     public static Client getConnectedClient() {
         return (Client) getAttribute("user");
+    }
+    public static boolean isClientConnected() {
+        Client client= getConnectedClient();
+        return (client!=null && client.getEmail()!=null) ;
+    }
+
+    public static Worker getConnectedWorker() {
+        return (Worker) getAttribute("connectedWorker");
+    }
+
+     public static boolean isWorkerConnected() {
+        Worker worker= getConnectedWorker();
+        return (worker!=null && worker.getLogin()!=null) ;
+    }
+    public static Manager getConnectedManager() {
+        return (Manager) getAttribute("connectedManager");
+    }
+    
+     public static boolean isManageronnected() {
+        Manager manager= getConnectedManager();
+        return (manager!=null && manager.getLogin()!=null) ;
     }
 
     public static void setAttribute(String cle, Object valeur) {

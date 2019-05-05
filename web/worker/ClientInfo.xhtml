@@ -13,28 +13,22 @@
     <ui:composition>
         <p:dialog id="clientInfoDlg" widgetVar="clientInfoDialog" modal="true" resizable="false" appendTo="@(body)" width="500" height="150"  header="Info Client :">
             <h:form id="clientInfoForm">
-                <p:panelGrid columns="4" style="margin: 0 auto">
+                 <p:panelGrid columns="2" style="margin: 0 auto">
 
                     <h:outputText value="Nom"/>
-                    <h:outputText value="#{workerController.client.nom}"/>
+                    <h:outputText value="#{managerController.client.nom}"/>
 
                     <h:outputText value="Prenom"/>
-                    <h:outputText value="#{workerController.client.prenom}"/>
+                    <h:outputText value="#{managerController.client.prenom}"/>
 
-                    <h:outputText value="Secteur"/>
-                    <h:outputText value="#{workerController.client.secteur.nom} "/>
+                    <h:outputText value="Email"/>
+                    <h:outputText value="#{managerController.client.email}"/>
+
+                    <h:outputText value="Telephone"/>
+                    <h:outputText value="#{managerController.client.phone}"/>
 
                     <h:outputText value="Adresse"/>
-                    <h:outputText value="#{workerController.client.adresseComplement}"/>
-                    
-                    <h:outputText value="Email"/>
-                    <h:outputText value="#{workerController.client.email}"/>
-                    
-                    <h:outputText value="Telephone"/>
-                    <h:outputText value="#{workerController.client.phone}"/>
-                    
-                    
-
+                    <h:outputText value="#{managerController.client.secteur.nom}, #{managerController.client.adresseComplement}"/>
 
                 </p:panelGrid>
             </h:form>
